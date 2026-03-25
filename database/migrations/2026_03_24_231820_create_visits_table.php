@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->foreignId('client_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->enum('motif', ['formation', 'conseil']);
+            $table->foreignId('motif_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }
