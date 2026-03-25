@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\MotifController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\VisitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/home', HomeController::class)->middleware('auth:sanctum');
 
     Route::apiResource('clients', ClientController::class)->middleware('auth:sanctum');
+    Route::apiResource('roles', RoleController::class)->middleware('auth:sanctum');
+    Route::apiResource('motifs', MotifController::class)->middleware('auth:sanctum');
 
     Route::apiResource('visits', VisitController::class)->middleware('auth:sanctum');
 });
