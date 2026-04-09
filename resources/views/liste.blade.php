@@ -7,16 +7,20 @@
     <title>Liste </title>
 </head>
 <body>
+
     <h1>Liste des étudiants</h1>
     <table>
         <tr>
-            <th>Nom</th>
-            <th>Prénoms</th>
+            <th>Nom et prénom</th>
+
         </tr>
-        <tr>
-            <td>ADOUKO</td>
-            <td>Samuel</td>
-        </tr>
+        @foreach ($liste as $nom )
+            <tr>
+                <td>
+                    {{ $nom }}
+                </td>
+            </tr>
+        @endforeach
     </table>
 </body>
-</html>
+</html
