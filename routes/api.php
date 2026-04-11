@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppControllerApi;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\HomeController;
@@ -30,3 +31,6 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('visits', VisitController::class)->middleware('auth:sanctum');
 });
+
+
+Route::post('/addrole', [AppControllerApi::class, 'addrole']);

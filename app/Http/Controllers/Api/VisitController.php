@@ -25,8 +25,9 @@ class VisitController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'motif' => ['in_array:formation,conseil', 'required'],
+            'user_id' => ['exists:users,id', 'sometimes'],
             'client_id' => ['exists:clients,id', 'required'],
+            'motif_id' => ['exists:clients,id', 'required'],
         ]);
 
         $visit = Visit::create($validated);
@@ -63,9 +64,10 @@ class VisitController extends Controller
      */
     public function update(Request $request, int $client)
     {
+
         $validated = $request->validate([
-            'motif' => ['in_array:formation,conseil', 'sometimes'],
-            'client_id' => ['exists:clients,id', 'sometimes'],
+            'client_id' => ['exists:clients,id', 'required'],
+            'motif_id' => ['exists:clients,id', 'required'],
         ]);
 
         $visit = Visit::find($client);
@@ -77,7 +79,7 @@ class VisitController extends Controller
             ], 404);
         }
 
-        $visit->motif = $validated['motif'] ?? $visit->motif;
+        $visit->motif_id = $validated['motif_id'] ?? $visit->motif_id;
         $visit->client_id = $validated['client_id'] ?? $visit->client_id;
         $visit->save();
 

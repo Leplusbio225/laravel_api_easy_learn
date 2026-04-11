@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Motif;
 use Illuminate\Http\Request;
 
 class MotifController extends Controller
@@ -12,7 +13,7 @@ class MotifController extends Controller
      */
     public function index()
     {
-        //
+        return Motif::paginate(25);
     }
 
     /**
@@ -20,7 +21,17 @@ class MotifController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'label' => 'required|string|in_array:formation,conseil',
+        ]);
+
+        $motif = Motif::create($validated);
+
+        return response()->json([
+            'status' => 'success',
+            'motif' => $motif,
+            'message' => 'motif créé avec succès',
+        ]);
     }
 
     /**

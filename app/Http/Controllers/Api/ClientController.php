@@ -25,6 +25,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'client_id' => ['nullable'],
             'name' => 'required|string|max:255',
             'gender' => ['required', 'in:M,F'],
             // 'email' => 'required|email|unique:clients',
@@ -36,7 +37,7 @@ class ClientController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Le client créé avec succès',
+            'message' => 'Le client a créé avec succès',
             'client' => $client,
         ], 201);
 

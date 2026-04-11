@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -12,7 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([Role::paginate(25)]);
     }
 
     /**
@@ -20,15 +21,26 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'label' => ['required', 'in_array:manager,responsable']
+        ]);
+
+        $role = Role::create($validated);
+
+        return response()->json([
+            'status' => 'success',
+            'role' => $role
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $role)
     {
-        //
+        $role = Role::findOrFail($role);
+
+        return response()->json(['status' => 'success', 'role' => $role]);
     }
 
     /**
